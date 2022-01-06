@@ -37,5 +37,5 @@ class Todo {
         this.#complete = true
     }
 }
-let todo = new Todo("Create task", "Create a task for a new to-do", new Date(2022, 2, 2), 3)
+let todo = new Todo("Create task", "Create a task for a to-do list", new Date(2022, 2, 2), 3)
 export {todo}
