@@ -2,7 +2,7 @@ class Todo {
     #complete = false
 
     // All public for now. Maybe change to #private later.
-    constructor(title, description, priority){
+    constructor(title, description, priority, hasDueDate = true){
         if (title === undefined) {
             throw new Error("Title is undefined")
         }
@@ -22,8 +22,8 @@ class Todo {
         this.title = title
         this.description = description
         this.priority = parseInt(priority)
+        this.hasDueDate = hasDueDate
     }
-    hasDueDate = false
     dueDate = new Date()
     checkList = []
     toggleHasDueDate() {
