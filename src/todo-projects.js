@@ -9,22 +9,24 @@ class Project {
         this.todos.push(todo)
         return todo
     }
-    sortByDate() {
-        function compareDate(a, b) {
-            if (!a.hasDueDate){
-                return 1
+    sortBy = {
+        date: () => {
+            function compareDate(a, b) {
+                if (!a.hasDueDate){
+                    return 1
+                }
+                return a.dueDate - b.dueDate
             }
-            return a.dueDate - b.dueDate
+            this.todos.sort(compareDate)
+        },
+        urgency: () => {
+            function compareUrgency(a, b) {
+                return a.priority - b.priority
+            }
+            this.todos.sort(compareUrgency)
         }
-        this.todos.sort(compareDate)
     }
-    sortByUrgency() {
-        function compareUrgency(a, b) {
-            return a.priority - b.priority
-        }
-        this.sortByDate()
-        this.todos.sort(compareUrgency)
-    }
+
     // sortBy = (function() {
     //     function compareDate(a, b) {
     //         return a.dueDate - b.dueDate

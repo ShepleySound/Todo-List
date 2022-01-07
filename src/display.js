@@ -43,6 +43,6 @@ todoSeven.toggleHasDueDate()
 todoEight.toggleHasDueDate()
 todoFour.setDueDate(new Date(2022, 1, 20))
 todoFive.setDueDate(new Date(2022, 1, 24))
-mainProject.sortByUrgency()
+mainProject.sortBy.date()
 
 printAllTodos(mainProject)
