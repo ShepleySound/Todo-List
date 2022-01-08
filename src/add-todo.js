@@ -1,5 +1,12 @@
 import categoryDisplay from "./category-display"
 import Todo from "./todo"
+import Project from "./todo-projects"
+import markup from "./DOM/add-todo-DOM"
+
+document.body.innerHTML = markup
+
+const currentProject = new Project("myProject")
+
 
 const form = document.querySelector('#add-form')
 const dateCheckbox = document.querySelector('#date-checkbox')
@@ -38,16 +45,18 @@ const addChecklistItem = () => {
 if (checklist.innerHTML === '') {
     addChecklistItem()
 }
-
-form.addEventListener('submit', (e) => {
+const newTodo = form.addEventListener('submit', (e) => {
     e.preventDefault()
     const newTodo = new Todo(form.title.value, 
                              form.description.value, 
                              form.priority.value,
                              dateCheckbox.checked,
                              checklistCheckbox.checked)
-    form.clear
-    console.log(newTodo)
-
+    currentProject.addTodo(newTodo)
+    localStorage.setItem(`${currentProject.title}`, JSON.stringify(currentProject))
+    console.log(JSON.parse(localStorage.getItem(`${currentProject.title}`)))
+    form.reset()
+    return newTodo
 })
 
+export default newTodo
