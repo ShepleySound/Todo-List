@@ -25,7 +25,6 @@ class Todo {
         this.hasDueDate = hasDueDate
         this.hasChecklist = hasChecklist
     }
-    dueDate = new Date()
     checkList = []
     toggleHasDueDate() {
         return this.hasDueDate = !this.hasDueDate
