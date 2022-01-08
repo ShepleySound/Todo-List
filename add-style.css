@@ -33,7 +33,7 @@ body {
     margin: 4px;
 }
 
-#add-button {
+#add-button, #minus-button {
     border: none;
     background-color: #363636;
     color: white;
@@ -41,6 +41,35 @@ body {
     font-weight: bolder;
 }
 
-#add-button:hover {
+#add-button:hover, #minus-button:hover {
     background-color: #484848
+}
+
+.todo{
+    background-color: #242424;
+    border-radius: 8px;
+    min-height: 4em;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+}
+
+.todo-complete{
+    margin: 0px;
+    width: 13px;
+}
+
+.check-and-title{
+    display: flex;
+    align-items: center;
+}
+
+.title{
+    font-size: 1.6em;
+    margin: 0px 12px;
+}
+
+.description{
+    margin: 0px 25px;
 }
