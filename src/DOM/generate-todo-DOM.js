@@ -29,8 +29,11 @@ const generateTodoDOM = (todo) => {
 
     title.innerText = todo.title
     description.innerText = todo.description
-    priority.innerText = `Priority
+    priority.innerText = `Priority:
                           ${translatePriority(todo.priority)}`
+    const deleteButton = document.createElement('button')
+    deleteButton.classList.add('todo-delete-button')
+    deleteButton.innerText = 'X'
     
     const date = document.createElement('div')
     date.classList.add('date')
@@ -40,7 +43,7 @@ const generateTodoDOM = (todo) => {
     }
 
 
-    container.append(headerContainer, description, date)
+    container.append(headerContainer, description, date, deleteButton)
     return container
 }
 

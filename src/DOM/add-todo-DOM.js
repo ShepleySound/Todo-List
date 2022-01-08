@@ -1,9 +1,17 @@
-
+import storage from '../project-storage'
 // A full page for adding a todo to a project.
 
 const addMarkup = () => {
+    const projects = storage.getAllProjectTitles()
     const markup = `
-        <h2>Add item to list: </h2>
+        <div id="add-header">
+        <h2>Add item to</h2>
+        <select name="project-selector" id="project-selector">
+            ${projects.map(project => 
+                        `<option value='${project}'>${project}</option>
+                        `).join('')}
+        </select>
+        </div>
         <form id="add-form">
             <input type="text" name="title" id="title" placeholder="title">
             <textarea name="description" id="description" placeholder="description" form="add-form"></textarea>

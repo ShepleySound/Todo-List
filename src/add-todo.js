@@ -3,9 +3,7 @@ import addPageMarkup from './DOM/add-todo-DOM'
 import Todo from "./todo"
 import Project from "./todo-projects"
 import loadMainPage from "./todos-page"
-
-
-const currentProject = new Project("myProject")
+import storage from "./project-storage"
 
 const loadAddTodoPage = () => {
     addPageMarkup()
@@ -55,6 +53,9 @@ const loadAddTodoPage = () => {
 
     form.addEventListener('submit', (e) => {
         e.preventDefault()
+        const projectTitle = document.querySelector('#project-selector').value
+        const project = storage.get(projectTitle)
+        console.log(storage.get(projectTitle))
         const newTodo = new Todo(form.title.value, 
                                  form.description.value, 
                                  form.priority.value,
@@ -70,8 +71,8 @@ const loadAddTodoPage = () => {
             const dueDate = document.querySelector("#due-date")
             newTodo.setDueDate(new Date(dueDate.value))
         }
-        currentProject.addTodo(newTodo)
-        localStorage.setItem(`${currentProject.title}`, JSON.stringify(currentProject))
+        project.addTodo(newTodo)
+        storage.set(projectTitle, project)
         loadMainPage()
     })
     const cancel = document.querySelector('#cancel')

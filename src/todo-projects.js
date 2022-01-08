@@ -5,9 +5,13 @@ class Project {
     }
     todos = []
     addTodo(todo) {
-        if (todo instanceof Todo)
-        this.todos.push(todo)
-        return todo
+        if (todo instanceof Todo){
+            this.todos.push(todo)
+            return todo
+        }
+    }
+    removeTodo(index) {
+        this.todos.splice(index, 1)
     }
     sortBy = {
         date: () => {
