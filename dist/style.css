@@ -163,3 +163,7 @@ h2.project-title{
     margin: 0px 0px 0px 6px;
     cursor: pointer;
 }
+
+input[type="checkbox"]{
+    accent-color: #646464;
+}

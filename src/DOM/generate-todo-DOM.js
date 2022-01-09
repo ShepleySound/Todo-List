@@ -15,9 +15,15 @@ const generateTodoDOM = (todo, index) => {
     const checkbox = document.createElement('input')
     checkbox.type = 'checkbox'
     checkbox.classList.add('todo-complete')
+    checkbox.checked = todo.complete
     const title = document.createElement('h3')
     title.style.alignSelf = 'flex-start'
     title.classList.add('title')
+
+    if (todo.complete){
+        title.style.textDecoration = 'line-through'
+        title.style.color = '#646464'
+    }
     
     checkbox.addEventListener('change', () => {
         if (checkbox.checked){
@@ -26,11 +32,10 @@ const generateTodoDOM = (todo, index) => {
         else{
             todo.complete = false
         }
-        // const project = projectStorage.get(todo.project)
-        // project.spliceTodo(index, todo)
-        // projectStorage.set(todo.project, project)
-        
-        // loadMainPage()
+        const project = projectStorage.get(todo.project)
+        project.spliceTodo(index, todo)
+        projectStorage.set(todo.project, project)
+        loadMainPage()
     })
 
     const buttons = document.createElement('div')
