@@ -6,8 +6,11 @@ const mainMarkup = () => {
     const markup = `
         ${projects.map(project =>
                     `<div class="project-container">
-                        <h2>${project}</h2>
-                        <div id="${project.replace(/\s/g, "-")}"></div>
+                        <div class="project-header">
+                            <h2 class="project-title">${project}</h2>
+                            <input type="button" class="delete-project-button" value="𝗫">
+                        </div>
+                        <div class="todos-container"></div>
                     </div>
                     `).join('')}
         <input type="button" value="Add Todo" id="add-todo-button">
@@ -18,3 +21,5 @@ const mainMarkup = () => {
 
 
 export default mainMarkup
+
+// id="${project.replace(/\s/g, "-")}"

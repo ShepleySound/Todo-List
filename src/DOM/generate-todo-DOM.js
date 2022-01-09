@@ -9,7 +9,7 @@ const generateTodoDOM = (todo) => {
     container.classList.add('todo')
     
     const headerContainer = document.createElement('div')
-    headerContainer.classList.add('check-and-title')
+    headerContainer.classList.add('todo-header')
 
     const checkbox = document.createElement('input')
     checkbox.type = 'checkbox'
@@ -17,11 +17,15 @@ const generateTodoDOM = (todo) => {
     const title = document.createElement('h3')
     title.style.alignSelf = 'flex-start'
     title.classList.add('title')
+
+    const deleteButton = document.createElement('button')
+    deleteButton.classList.add('todo-delete-button')
+    deleteButton.innerText = '𝗫'
+
+    headerContainer.append(checkbox, title, deleteButton)
+
     const priority = document.createElement('div')
     priority.classList.add('priority')
-    priority.style.marginLeft = 'auto'
-
-    headerContainer.append(checkbox, title, priority)
     
     const description = document.createElement('p')
     description.classList.add('description')
@@ -29,11 +33,8 @@ const generateTodoDOM = (todo) => {
 
     title.innerText = todo.title
     description.innerText = todo.description
-    priority.innerText = `Priority:
-                          ${translatePriority(todo.priority)}`
-    const deleteButton = document.createElement('button')
-    deleteButton.classList.add('todo-delete-button')
-    deleteButton.innerText = 'X'
+    priority.innerText = `Priority: ${translatePriority(todo.priority)}`
+
     
     const date = document.createElement('div')
     date.classList.add('date')
@@ -43,7 +44,7 @@ const generateTodoDOM = (todo) => {
     }
 
 
-    container.append(headerContainer, description, date, deleteButton)
+    container.append(headerContainer, description, priority, date)
     return container
 }
 
