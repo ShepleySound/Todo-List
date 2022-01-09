@@ -3,8 +3,6 @@ import mainPageMarkup from './main-page-DOM'
 import loadAddTodoPage from "../add-page/add-todo";
 import projectStorage from "../project-storage"
 import Project from "../project-class";
-import './view-style.css'
-
 
 const loadMainPage = () => {
     mainPageMarkup()

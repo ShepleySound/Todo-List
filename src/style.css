@@ -167,3 +167,16 @@ h2.project-title{
 input[type="checkbox"]{
     accent-color: #646464;
 }
+
+.nav-button{
+    background-color: #484848;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    padding: 8px;
+    margin: 8px 12px 0px 0px;
+}
+
+.nav-button:hover{
+    background-color: #484848;
+}

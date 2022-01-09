@@ -5,8 +5,6 @@ import Todo from "../todo-class"
 import loadMainPage from "../view-page/view-page"
 import storage from "../project-storage"
 import parseISO from "date-fns/parseISO"
-import './add-style.css'
-
 
 const loadAddTodoPage = (addEditOption, project, index) => {
     let editMode
