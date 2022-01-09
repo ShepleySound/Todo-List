@@ -94,7 +94,11 @@ body {
     color: #646464
 }
 
-.todo-delete-button{
+.todo-header-buttons{
+    margin-left: auto;
+    display: flex;
+}
+.todo-delete-button, .todo-edit-button{
     margin-bottom: auto;
 }
 
@@ -114,7 +118,8 @@ body {
     display: flex;
     align-items: center;
 }
-.delete-project-button, .todo-delete-button{
+
+.delete-project-button, .todo-delete-button, .todo-edit-button{
     margin-left: auto;
     display: flex;
     align-items: center;
@@ -131,6 +136,11 @@ body {
     background-color: #484848;
 }
 
-.todo-delete-button:hover{
+.todo-delete-button:hover, .todo-edit-button:hover{
     background-color: #363636;
+}
+
+.check-container{
+    display: flex;
+    margin: 8px 20px;
 }

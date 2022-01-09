@@ -2,12 +2,14 @@ import Todo from "./todo"
 import Project from "./todo-projects"
 
 const set = (projectTitle, project) => {
-    localStorage.setItem(projectTitle, JSON.stringify(project))
+    return localStorage.setItem(projectTitle, JSON.stringify(project))
 }
 const get = (projectTitle) => {
     let value = localStorage.getItem(projectTitle)
     value = JSON.parse(value)
-    const project = Object.assign(new Project(projectTitle), value)
+    const project = Project.fromJSON(value)
+    // console.log(project)
+    // const project = Object.assign(new Project(projectTitle), value)
     return project
 }
 

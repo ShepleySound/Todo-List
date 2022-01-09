@@ -25,6 +25,10 @@ class Todo {
         this.hasDueDate = hasDueDate
         this.hasChecklist = hasChecklist
     }
+    static fromJSON(JSON){
+        const todo = new Todo(JSON.title, JSON.description, JSON.priority, JSON.hasDueDate, JSON.hasChecklist)
+        return Object.assign(todo, JSON)
+    } 
     checkList = []
     toggleHasDueDate() {
         return this.hasDueDate = !this.hasDueDate
@@ -43,7 +47,11 @@ class Todo {
             throw new Error("Due date is not a date")
         }
         if (new Date() > dueDate){
+            console.log(dueDate)
             throw new Error("Due date/time must be after current date/time")
+        }
+        if (dueDate.toString() === 'Invalid Date'){
+            throw new Error("Invalid Date")
         }
         return this.dueDate = dueDate
     }

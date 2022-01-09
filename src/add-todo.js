@@ -1,12 +1,25 @@
 import categoryDisplay from "./category-display"
 import addPageMarkup from './DOM/add-todo-DOM'
+import editPageMarkup from "./DOM/edit-todo-DOM"
 import Todo from "./todo"
 import Project from "./todo-projects"
 import loadMainPage from "./todos-page"
 import storage from "./project-storage"
+import parseISO from "date-fns/parseISO"
 
-const loadAddTodoPage = () => {
-    addPageMarkup()
+
+const loadAddTodoPage = (addEditOption, project, index) => {
+    let editMode
+    switch (addEditOption) {
+        case 'add':
+            addPageMarkup()
+            editMode = false
+            break
+        case 'edit':
+            editPageMarkup(project.title)
+            editMode = true
+            break
+    }
     const form = document.querySelector('#add-form')
     const dateCheckbox = document.querySelector('#date-checkbox')
     const dateSelector = document.querySelector('#date-selector')
@@ -42,6 +55,7 @@ const loadAddTodoPage = () => {
         })
         checklistDiv.append(checkbox, textBox, addButton, minusButton)
         checklist.append(checklistDiv)
+        return checklistDiv
     }
 
     // Adds item to page's checklist if completely empty.
@@ -50,12 +64,48 @@ const loadAddTodoPage = () => {
             addChecklistItem()
         }
     })
+    const editPageChanges = () => {
+        const todo = project.getTodo(index)
+        form.title.value = todo.title
+        form.description.value = todo.description
+        form.priority.value = todo.priority
+        if (todo.hasDueDate){
+            dateCheckbox.checked = true
+            dateSelector.classList.remove('hidden')
+            dateSelector.required = true
+        }
+        if (todo.hasChecklist){
+            checklistCheckbox.checked = true
+            checklist.classList.remove('hidden')
+            let checkDiv
+            let addButton
+            todo.checkList.forEach(check => {
+                if (addButton){
+                    checkDiv.removeChild(addButton)
+                }
+                checkDiv = addChecklistItem()
+                addButton = checkDiv.querySelector('#add-button')
+                let input = checkDiv.querySelector('.checklist-input')
+            })
+        }
 
+    }
+    if (editMode){
+        editPageChanges()
+    }
     form.addEventListener('submit', (e) => {
         e.preventDefault()
-        const projectTitle = document.querySelector('#project-selector').value
-        const project = storage.get(projectTitle)
-        console.log(storage.get(projectTitle))
+        let projectTitle
+        if (editMode) {
+            projectTitle = project.title        }
+        else {
+            projectTitle = document.querySelector('#project-selector').value
+            console.log(projectTitle)
+            project = storage.get(projectTitle)
+        }
+        // const projectTitle = document.querySelector('#project-selector').value
+        // const project = storage.get(projectTitle)
+        // console.log(storage.get(projectTitle))
         const newTodo = new Todo(form.title.value, 
                                  form.description.value, 
                                  form.priority.value,
@@ -69,14 +119,22 @@ const loadAddTodoPage = () => {
         }
         if (newTodo.hasDueDate){
             const dueDate = document.querySelector("#due-date")
+            console.log(dueDate.value)
+            console.log(parseISO(dueDate.value))
             newTodo.setDueDate(new Date(dueDate.value))
         }
-        project.addTodo(newTodo)
+        if (editMode){
+            project.editTodo(index, newTodo)
+        }
+        else {
+            project.addTodo(newTodo)
+        }
         storage.set(projectTitle, project)
         loadMainPage()
     })
     const cancel = document.querySelector('#cancel')
-    cancel.addEventListener('click', () => {
+    cancel.addEventListener('click', (e) => {
+        e.preventDefault()
         loadMainPage()
     })    
 }

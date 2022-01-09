@@ -3,6 +3,10 @@ class Project {
     constructor(title){
         this.title = title
     }
+    static fromJSON(JSON){
+        const project = new Project(JSON.title)
+        return Object.assign(project, JSON)
+    }
     todos = []
     addTodo(todo) {
         if (todo instanceof Todo){
@@ -10,8 +14,17 @@ class Project {
             return todo
         }
     }
+    editTodo(index, newTodo){
+        if (newTodo instanceof Todo){
+            this.todos[index] = newTodo
+        }
+    }
     removeTodo(index) {
         this.todos.splice(index, 1)
+    }
+    getTodo(index) {
+            const todo = this.todos[index]
+            return Todo.fromJSON(todo)
     }
     sortBy = {
         date: () => {

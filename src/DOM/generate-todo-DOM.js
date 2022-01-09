@@ -17,12 +17,16 @@ const generateTodoDOM = (todo) => {
     const title = document.createElement('h3')
     title.style.alignSelf = 'flex-start'
     title.classList.add('title')
-
+    const buttons = document.createElement('div')
+    buttons.classList.add('todo-header-buttons')
     const deleteButton = document.createElement('button')
     deleteButton.classList.add('todo-delete-button')
     deleteButton.innerText = '𝗫'
-
-    headerContainer.append(checkbox, title, deleteButton)
+    const editButton = document.createElement('button')
+    editButton.classList.add('todo-edit-button')
+    editButton.innerText = 'O'
+    buttons.append(editButton, deleteButton)
+    headerContainer.append(checkbox, title, buttons)
 
     const priority = document.createElement('div')
     priority.classList.add('priority')
@@ -30,12 +34,25 @@ const generateTodoDOM = (todo) => {
     const description = document.createElement('p')
     description.classList.add('description')
     
+    const checklistContainer = document.createElement('div')
+    checklistContainer.classList.add('checklist-container')
+    todo.checkList.forEach(check => {
+        const checkContainer = document.createElement('div')
+        checkContainer.classList.add('check-container')
+        const checklistBox = document.createElement('input')
+        checklistBox.type = 'checkbox'
+        checklistBox.classList.add('checklist-box')
+        const checklistText = document.createElement('div')
+        checklistText.classList.add('checklist-text')
+        checklistText.innerText = check
+        checkContainer.append(checklistBox, checklistText)
+        checklistContainer.append(checkContainer)
+    })
+
 
     title.innerText = todo.title
     description.innerText = todo.description
     priority.innerText = `Priority: ${translatePriority(todo.priority)}`
-
-    
     const date = document.createElement('div')
     date.classList.add('date')
     if (todo.hasDueDate){
@@ -44,7 +61,7 @@ const generateTodoDOM = (todo) => {
     }
 
 
-    container.append(headerContainer, description, priority, date)
+    container.append(headerContainer, description, priority, checklistContainer, date)
     return container
 }
 
