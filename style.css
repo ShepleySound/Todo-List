@@ -94,7 +94,7 @@ body {
     color: #646464
 }
 
-.todo-header-buttons{
+.todo-header-buttons, .project-header-buttons{
     margin-left: auto;
     display: flex;
 }
@@ -120,7 +120,21 @@ body {
     justify-content: space-between;
 }
 
-.delete-project-button, .todo-delete-button, .todo-edit-button{
+h2.project-title{
+    font-size: 1.6em;
+    margin: 16px 0px;
+}
+
+.project-title-edit-text{
+    font-size: 1.6em;
+    background-color: #484848;
+    border: none;
+    color: white;
+    margin: 16px 0px;
+    border-radius: 4px;
+}
+
+.delete-project-button, .edit-project-button, .todo-delete-button, .todo-edit-button{
     margin-left: auto;
     display: flex;
     align-items: center;
@@ -131,7 +145,7 @@ body {
     color: white;
 }
 
-.delete-project-button:hover{
+.delete-project-button:hover, .edit-project-button:hover{
     background-color: #484848;
 }
 
