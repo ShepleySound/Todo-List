@@ -19,12 +19,14 @@ const generateTodoDOM = (todo) => {
     title.classList.add('title')
     const buttons = document.createElement('div')
     buttons.classList.add('todo-header-buttons')
-    const deleteButton = document.createElement('button')
+    const deleteButton = document.createElement('span')
     deleteButton.classList.add('todo-delete-button')
-    deleteButton.innerText = '𝗫'
-    const editButton = document.createElement('button')
+    deleteButton.classList.add('material-icons-outlined')
+    deleteButton.innerText = 'close'
+    const editButton = document.createElement('span')
     editButton.classList.add('todo-edit-button')
-    editButton.innerText = 'O'
+    editButton.classList.add('material-icons-outlined')
+    editButton.innerHTML = 'edit'
     buttons.append(editButton, deleteButton)
     headerContainer.append(checkbox, title, buttons)
 

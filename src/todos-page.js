@@ -40,6 +40,10 @@ const loadMainPage = () => {
         deleteButton.addEventListener('click', () => {
             const parent = deleteButton.parentElement
             const projectTitle = parent.querySelector('.project-title').innerText
+            if (localStorage.length === 1){
+                alert('Cannot delete last remaining project.')
+                return
+            }
             if (confirm(`Delete ${projectTitle}?`)){
                 projectStorage.remove(projectTitle)
                 loadMainPage()
