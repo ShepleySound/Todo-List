@@ -1,5 +1,4 @@
 import projectStorage from "../project-storage"
-import Project from "../todo-projects"
 
 const mainMarkup = () => {
     const projects = projectStorage.getAllProjectTitles()
@@ -16,13 +15,11 @@ const mainMarkup = () => {
                         <div class="todos-container"></div>
                     </div>
                     `).join('')}
-        <input type="button" value="Add Todo" id="add-todo-button">
-        <input type="button" value="New Project" id="main-new-project-button">
+        <input type="button" value="Add Todo" id="add-todo-button" class="nav-button">
+        <input type="button" value="New Project" id="main-new-project-button" class="nav-button">
     `
     document.body.innerHTML = markup
 }
 
 
 export default mainMarkup
-
-// id="${project.replace(/\s/g, "-")}"

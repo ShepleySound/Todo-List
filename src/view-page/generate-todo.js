@@ -1,11 +1,11 @@
-import translatePriority from "../translatePriority"
-import {dueFormat, dueDistance} from "../due-date"
+import translatePriority from "../helpers/translatePriority"
+import {dueFormat, dueDistance} from "../helpers/due-date"
 import { parseISO } from "date-fns"
 import projectStorage from "../project-storage"
-import loadMainPage from "../todos-page"
+import loadMainPage from "./view-page"
 // Generate a DOM representation of a Todo object.
 
-const generateTodoDOM = (todo, index) => {
+const generateTodo = (todo, index) => {
     const container = document.createElement('div')
     container.classList.add('todo')
     
@@ -107,4 +107,4 @@ const generateTodoDOM = (todo, index) => {
     return container
 }
 
-export default generateTodoDOM
+export default generateTodo

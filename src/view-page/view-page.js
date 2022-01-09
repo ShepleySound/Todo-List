@@ -1,8 +1,9 @@
-import generateTodoDOM from "./DOM/generate-todo-DOM";
-import mainPageMarkup from './DOM/main-page-DOM'
-import loadAddTodoPage from "./add-todo";
-import projectStorage from "./project-storage"
-import Project from "./todo-projects";
+import generateTodo from "./generate-todo";
+import mainPageMarkup from './main-page-DOM'
+import loadAddTodoPage from "../add-page/add-todo";
+import projectStorage from "../project-storage"
+import Project from "../project-class";
+import './view-style.css'
 
 
 const loadMainPage = () => {
@@ -17,7 +18,7 @@ const loadMainPage = () => {
         
         const todos = project.getAllTodos()
         todos.forEach((todo, index) => {
-            todosDiv.append(generateTodoDOM(todo, index))
+            todosDiv.append(generateTodo(todo, index))
         })
     })
 
@@ -29,10 +30,22 @@ const loadMainPage = () => {
     // Button for adding new projects
     const newProjectButton = document.querySelector('#main-new-project-button')
     newProjectButton.addEventListener('click', () => {
-        const newProject = prompt("Name your new project:")
-        if (newProject){
-            projectStorage.set(newProject, new Project(newProject))
-            loadMainPage()
+        let newProject = prompt("Name your new project:")
+        while (true){
+            if (newProject === null){
+                return
+            }
+            if (newProject.length === 0){
+                newProject = prompt("Please enter a name for your project:")
+            }
+            if (newProject.length > 40){
+                newProject = prompt("Project name must be under 40 characters.")
+            }
+            if (newProject){
+                projectStorage.set(newProject, new Project(newProject))
+                loadMainPage()
+                return
+            }
         }
     })
 
@@ -48,6 +61,7 @@ const loadMainPage = () => {
             titleInput.classList.add('project-title-edit-text')
             titleInput.type = 'text'
             titleInput.value = projectTitle
+            titleInput.maxLength = "40"
             projectTitleElement.replaceWith(titleInput)
             titleInput.focus()
             const project = projectStorage.get(projectTitle)

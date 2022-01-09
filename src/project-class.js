@@ -1,4 +1,5 @@
-import Todo from './todo'
+import Todo from './todo-class'
+
 class Project {
     constructor(title){
         this.title = title

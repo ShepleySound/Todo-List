@@ -1,11 +1,11 @@
-import categoryDisplay from "./category-display"
-import addPageMarkup from './DOM/add-todo-DOM'
-import editPageMarkup from "./DOM/edit-todo-DOM"
-import Todo from "./todo"
-import Project from "./todo-projects"
-import loadMainPage from "./todos-page"
-import storage from "./project-storage"
+import categoryDisplay from "../helpers/category-display"
+import addPageMarkup from './add-todo-DOM'
+import editPageMarkup from "./edit-todo-DOM"
+import Todo from "../todo-class"
+import loadMainPage from "../view-page/view-page"
+import storage from "../project-storage"
 import parseISO from "date-fns/parseISO"
+import './add-style.css'
 
 
 const loadAddTodoPage = (addEditOption, project, index) => {
@@ -86,7 +86,6 @@ const loadAddTodoPage = (addEditOption, project, index) => {
                 checkDiv = addChecklistItem()
                 addButton = checkDiv.querySelector('#add-button')
                 let checkbox = checkDiv.querySelector('.checklist-check')
-                console.log(checkbox)
                 let input = checkDiv.querySelector('.checklist-input')
                 input.value = check.text
                 checkbox.checked = check.checked
@@ -106,9 +105,7 @@ const loadAddTodoPage = (addEditOption, project, index) => {
             projectTitle = document.querySelector('#project-selector').value
             project = storage.get(projectTitle)
         }
-        // const projectTitle = document.querySelector('#project-selector').value
-        // const project = storage.get(projectTitle)
-        // console.log(storage.get(projectTitle))
+
         const newTodo = new Todo(form.title.value, 
                                  form.description.value, 
                                  form.priority.value,
@@ -129,8 +126,6 @@ const loadAddTodoPage = (addEditOption, project, index) => {
         }
         if (newTodo.hasDueDate){
             const dueDate = document.querySelector("#due-date")
-            console.log(dueDate.value)
-            console.log(parseISO(dueDate.value))
             newTodo.setDueDate(new Date(dueDate.value))
         }
         if (editMode){

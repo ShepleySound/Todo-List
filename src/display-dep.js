@@ -1,7 +1,7 @@
-import Todo from "./todo";
-import Project from './todo-projects'
-import { dueFormat, dueDistance } from "./due-date"
-import translatePriority from './translatePriority'
+import Todo from "./todo-class";
+import Project from './project-class'
+import { dueFormat, dueDistance } from "./helpers/due-date"
+import translatePriority from './helpers/translatePriority'
 
 
 // Print a Todo (object)

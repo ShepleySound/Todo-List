@@ -13,7 +13,7 @@ const addMarkup = () => {
         </select>
         </div>
         <form id="add-form">
-            <input type="text" name="title" id="title" placeholder="title">
+            <input type="text" name="title" id="title" placeholder="title" maxlength="60">
             <textarea name="description" id="description" placeholder="description" form="add-form"></textarea>
             <div id="priority-container">
                 <label for="priority">Priority</label>
@@ -39,8 +39,8 @@ const addMarkup = () => {
                 </div>
                 <div id="checklist" class="hidden"></div>
             </div>
-            <input type="button" value="Cancel" id="cancel">
-            <input type="submit" value="Submit" id="submit">
+            <input type="button" value="Cancel" id="cancel" class="nav-button">
+            <input type="submit" value="Submit" id="submit" class="nav-button">
         </div>
     `
     document.body.innerHTML = markup

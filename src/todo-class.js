@@ -13,7 +13,6 @@ class Todo {
             throw new Error("Priority is undefined")
         }
         if (isNaN(parseInt(priority))) {
-            console.log(typeof priority)
             throw new Error("Priority is not a valid integer")
         }
         if (priority < 1 || priority > 3) {
@@ -42,7 +41,6 @@ class Todo {
             throw new Error("Due date is not a date")
         }
         if (new Date() > dueDate){
-            console.log(dueDate)
             throw new Error("Due date/time must be after current date/time")
         }
         if (dueDate.toString() === 'Invalid Date'){
