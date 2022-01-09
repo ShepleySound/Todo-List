@@ -14,8 +14,10 @@ const loadMainPage = () => {
         // const todosDiv = document.querySelector(`#${header.innerText.replace(/\s/g, "-")}`)
         const projectContainer = header.parentElement.parentElement
         const todosDiv = projectContainer.querySelector('.todos-container')
-        project.todos.forEach(todo => {
-            todosDiv.append(generateTodoDOM(todo))
+        
+        const todos = project.getAllTodos()
+        todos.forEach((todo, index) => {
+            todosDiv.append(generateTodoDOM(todo, index))
         })
     })
 
@@ -34,11 +36,59 @@ const loadMainPage = () => {
         }
     })
 
+    // Button for editing project title
+    const editProjectButtons = document.querySelectorAll('.edit-project-button')
+    editProjectButtons.forEach(editButton => {
+        editButton.addEventListener('click', function editClick() {
+            const parent = editButton.parentElement.parentElement
+            const projectTitleElement = parent.querySelector('.project-title')
+            const projectTitle = projectTitleElement.innerText
+
+            const titleInput = document.createElement('input')
+            titleInput.classList.add('project-title-edit-text')
+            titleInput.type = 'text'
+            titleInput.value = projectTitle
+            projectTitleElement.replaceWith(titleInput)
+            titleInput.focus()
+            const project = projectStorage.get(projectTitle)
+
+            const submitTitle = () => {
+                if (titleInput.value !== projectTitle){
+                    project.editTitle(titleInput.value)
+                    projectStorage.set(project.title, project)
+                    projectStorage.remove(projectTitle)
+                }
+
+                projectTitleElement.innerText = project.title
+                titleInput.replaceWith(projectTitleElement)
+            }
+
+            const submitClick = () => {
+                submitTitle()
+                editButton.removeEventListener('click', submitClick)
+                editButton.addEventListener('click', editClick)
+            }
+
+            editButton.removeEventListener('click', editClick)
+
+            editButton.addEventListener('click', submitClick)
+
+            titleInput.addEventListener('keydown', (e) => {
+                if (e.code === 'Enter'){
+                    submitTitle()
+                    editButton.addEventListener('click', editClick)
+                    editButton.removeEventListener('click', submitClick)
+                }
+            })       
+        })
+    })
+
+
     // Button for deleting project
     const deleteProjectButtons = document.querySelectorAll('.delete-project-button')
     deleteProjectButtons.forEach(deleteButton => {
         deleteButton.addEventListener('click', () => {
-            const parent = deleteButton.parentElement
+            const parent = deleteButton.parentElement.parentElement
             const projectTitle = parent.querySelector('.project-title').innerText
             if (localStorage.length === 1){
                 alert('Cannot delete last remaining project.')
@@ -50,6 +100,8 @@ const loadMainPage = () => {
             }
         })
     })
+
+
     const projectContainers = document.querySelectorAll('.project-container')
     // Loop through all projects
     projectContainers.forEach(projectContainer => {

@@ -8,7 +8,10 @@ const mainMarkup = () => {
                     `<div class="project-container">
                         <div class="project-header">
                             <h2 class="project-title">${project}</h2>
-                            <span class="delete-project-button material-icons-outlined">close</span>
+                            <div class="project-header-buttons">
+                                <span class="edit-project-button material-icons-outlined">edit</span>
+                                <span class="delete-project-button material-icons-outlined">close</span>
+                            </div>
                         </div>
                         <div class="todos-container"></div>
                     </div>

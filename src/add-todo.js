@@ -85,7 +85,11 @@ const loadAddTodoPage = (addEditOption, project, index) => {
                 }
                 checkDiv = addChecklistItem()
                 addButton = checkDiv.querySelector('#add-button')
+                let checkbox = checkDiv.querySelector('.checklist-check')
+                console.log(checkbox)
                 let input = checkDiv.querySelector('.checklist-input')
+                input.value = check.text
+                checkbox.checked = check.checked
             })
         }
 
@@ -100,7 +104,6 @@ const loadAddTodoPage = (addEditOption, project, index) => {
             projectTitle = project.title        }
         else {
             projectTitle = document.querySelector('#project-selector').value
-            console.log(projectTitle)
             project = storage.get(projectTitle)
         }
         // const projectTitle = document.querySelector('#project-selector').value
@@ -110,11 +113,18 @@ const loadAddTodoPage = (addEditOption, project, index) => {
                                  form.description.value, 
                                  form.priority.value,
                                  dateCheckbox.checked,
-                                 checklistCheckbox.checked)
+                                 checklistCheckbox.checked,
+                                 projectTitle)
         if (newTodo.hasChecklist){
-            const checklistInputs = document.querySelectorAll('.checklist-input')
-            checklistInputs.forEach(item => {
-                newTodo.checkList.push(item.value)
+            const checklistItems = document.querySelectorAll('.checklist-item')
+            checklistItems.forEach(item => {
+                const input = item.querySelector('.checklist-input')
+                const checkbox = item.querySelector('.checklist-check')
+                const checkItem = {
+                    text: input.value,
+                    checked: checkbox.checked
+                }
+                newTodo.checkList.push(checkItem)
             })
         }
         if (newTodo.hasDueDate){
@@ -124,7 +134,7 @@ const loadAddTodoPage = (addEditOption, project, index) => {
             newTodo.setDueDate(new Date(dueDate.value))
         }
         if (editMode){
-            project.editTodo(index, newTodo)
+            project.spliceTodo(index, newTodo)
         }
         else {
             project.addTodo(newTodo)

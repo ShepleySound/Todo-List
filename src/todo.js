@@ -1,8 +1,8 @@
 class Todo {
-    #complete = false
+    complete = false
 
     // All public for now. Maybe change to #private later.
-    constructor(title, description, priority, hasDueDate = false, hasChecklist = false){
+    constructor(title, description, priority, hasDueDate = false, hasChecklist = false, project){
         if (title === undefined || title === '') {
             throw new Error("Title is undefined or empty")
         }
@@ -24,9 +24,10 @@ class Todo {
         this.priority = parseInt(priority)
         this.hasDueDate = hasDueDate
         this.hasChecklist = hasChecklist
+        this.project = project
     }
     static fromJSON(JSON){
-        const todo = new Todo(JSON.title, JSON.description, JSON.priority, JSON.hasDueDate, JSON.hasChecklist)
+        const todo = new Todo(JSON.title, JSON.description, JSON.priority, JSON.hasDueDate, JSON.hasChecklist, JSON.project)
         return Object.assign(todo, JSON)
     } 
     checkList = []
@@ -35,12 +36,6 @@ class Todo {
     }
     toggleHasChecklist() {
         return this.hasChecklist = !this.hasChecklist
-    }
-    getComplete() {
-        return this.#complete
-    }
-    triggerComplete() {
-        return this.#complete = true
     }
     setDueDate(dueDate) {
         if (!(dueDate instanceof Date)) {

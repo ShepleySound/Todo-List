@@ -5,7 +5,11 @@ class Project {
     }
     static fromJSON(JSON){
         const project = new Project(JSON.title)
-        return Object.assign(project, JSON)
+        const todos = []
+        JSON.todos.forEach(todo => {
+            todos.push(Todo.fromJSON(todo))
+        })
+        return Object.assign(project, JSON, {todos})
     }
     todos = []
     addTodo(todo) {
@@ -14,7 +18,13 @@ class Project {
             return todo
         }
     }
-    editTodo(index, newTodo){
+    editTodo(oldTodo, newTodo){
+        if (newTodo instanceof Todo){
+            const index = this.todos.indexOf(oldTodo)
+            this.todos[index] = newTodo
+        }
+    }
+    spliceTodo(index, newTodo){
         if (newTodo instanceof Todo){
             this.todos[index] = newTodo
         }
@@ -23,8 +33,18 @@ class Project {
         this.todos.splice(index, 1)
     }
     getTodo(index) {
-            const todo = this.todos[index]
-            return Todo.fromJSON(todo)
+        const todo = this.todos[index]
+        return Todo.fromJSON(todo)
+    }
+    getAllTodos() {
+        const todos = []
+        this.todos.forEach(todo => {
+            todos.push(Todo.fromJSON(todo))
+        });
+        return todos
+    }
+    editTitle(newTitle) {
+        this.title = newTitle
     }
     sortBy = {
         date: () => {

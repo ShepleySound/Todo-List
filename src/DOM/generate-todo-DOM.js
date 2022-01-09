@@ -1,10 +1,11 @@
 import translatePriority from "../translatePriority"
 import {dueFormat, dueDistance} from "../due-date"
 import { parseISO } from "date-fns"
+import projectStorage from "../project-storage"
+import loadMainPage from "../todos-page"
 // Generate a DOM representation of a Todo object.
 
-const generateTodoDOM = (todo) => {
-
+const generateTodoDOM = (todo, index) => {
     const container = document.createElement('div')
     container.classList.add('todo')
     
@@ -17,6 +18,21 @@ const generateTodoDOM = (todo) => {
     const title = document.createElement('h3')
     title.style.alignSelf = 'flex-start'
     title.classList.add('title')
+    
+    checkbox.addEventListener('change', () => {
+        if (checkbox.checked){
+            todo.complete = true
+        }
+        else{
+            todo.complete = false
+        }
+        // const project = projectStorage.get(todo.project)
+        // project.spliceTodo(index, todo)
+        // projectStorage.set(todo.project, project)
+        
+        // loadMainPage()
+    })
+
     const buttons = document.createElement('div')
     buttons.classList.add('todo-header-buttons')
     const deleteButton = document.createElement('span')
@@ -44,11 +60,30 @@ const generateTodoDOM = (todo) => {
         const checklistBox = document.createElement('input')
         checklistBox.type = 'checkbox'
         checklistBox.classList.add('checklist-box')
+        checklistBox.checked = check.checked
         const checklistText = document.createElement('div')
         checklistText.classList.add('checklist-text')
-        checklistText.innerText = check
+        checklistText.innerText = check.text
         checkContainer.append(checklistBox, checklistText)
         checklistContainer.append(checkContainer)
+
+        if (check.checked){
+            checklistText.style.textDecoration = 'line-through'
+            checklistText.style.color = '#646464'
+        }
+        checklistBox.addEventListener('change', () => {
+            if (checklistBox.checked){
+                check.checked = true
+            }
+            else{
+                check.checked = false
+            }
+            const project = projectStorage.get(todo.project)
+            project.spliceTodo(index, todo)
+            projectStorage.set(todo.project, project)
+            
+            loadMainPage()
+        })
     })
 
 
