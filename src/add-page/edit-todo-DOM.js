@@ -1,8 +1,7 @@
-
 // A full page for editing a todo from a project.
 
 const editMarkup = (project) => {
-    const markup = `
+  const markup = `
         <div id="add-header">
         <h2>Edit todo from ${project}</h2>
         </div>
@@ -36,9 +35,8 @@ const editMarkup = (project) => {
             <input type="button" value="Cancel" id="cancel">
             <input type="submit" value="Submit" id="submit">
         </div>
-    `
-    document.body.innerHTML = markup
-}
+    `;
+  document.body.innerHTML = markup;
+};
 
-
-export default editMarkup
+export default editMarkup;

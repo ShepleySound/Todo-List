@@ -1,10 +1,9 @@
-import { format, formatDistance, addDays } from 'date-fns'
-const dueDistance = (dueDate) => {
-    const dateGap = formatDistance(dueDate, new Date(), {addSuffix: true})
-    return `Due ${dateGap}`
-}
-const dueFormat = (dueDate) => {
-    return format(dueDate, "MMMM dd, yyyy")
-}
+import { format, formatDistance } from 'date-fns';
 
-export {dueFormat, dueDistance}
+const dueDistance = (dueDate) => {
+  const dateGap = formatDistance(dueDate, new Date(), { addSuffix: true });
+  return `Due ${dateGap}`;
+};
+const dueFormat = (dueDate) => format(dueDate, 'MMMM dd, yyyy');
+
+export { dueFormat, dueDistance };

@@ -1,14 +1,13 @@
-import storage from '../project-storage'
+import storage from '../project-storage';
 // A full page for adding a todo to a project.
 
 const addMarkup = () => {
-    const projects = storage.getAllProjectTitles()
-    const markup = `
+  const projects = storage.getAllProjectTitles();
+  const markup = `
         <div id="add-header">
         <h2>Add item to</h2>
         <select name="project-selector" id="project-selector">
-            ${projects.map(project => 
-                        `<option value="${project}">${project}</option>
+            ${projects.map((project) => `<option value="${project}">${project}</option>
                         `).join('')}
         </select>
         </div>
@@ -42,9 +41,8 @@ const addMarkup = () => {
             <input type="button" value="Cancel" id="cancel" class="nav-button">
             <input type="submit" value="Submit" id="submit" class="nav-button">
         </div>
-    `
-    document.body.innerHTML = markup
-}
+    `;
+  document.body.innerHTML = markup;
+};
 
-
-export default addMarkup
+export default addMarkup;
