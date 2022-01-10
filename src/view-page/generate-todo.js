@@ -101,7 +101,13 @@ const generateTodo = (todo, index) => {
                           ${dueDistance(parseISO(todo.dueDate))}`;
   }
 
-  container.append(headerContainer, description, priority, checklistContainer, date);
+  container.append(
+    headerContainer,
+    description,
+    priority,
+    checklistContainer,
+    date,
+  );
   return container;
 };
 

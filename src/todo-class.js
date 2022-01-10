@@ -2,7 +2,14 @@ class Todo {
   complete = false;
 
   // All public for now. Maybe change to #private later.
-  constructor(title, description, priority, project, hasDueDate = false, hasChecklist = false) {
+  constructor(
+    title,
+    description,
+    priority,
+    project,
+    hasDueDate = false,
+    hasChecklist = false,
+  ) {
     if (title === undefined || title === '') {
       throw new Error('Title is undefined or empty');
     }
@@ -65,7 +72,7 @@ class Todo {
     this.checkList.splice(index, 0, text);
   }
 
-  removeCheckItem(index = (this.checkList.length - 1)) {
+  removeCheckItem(index = this.checkList.length - 1) {
     this.checkList.splice(index, 1);
   }
 }

@@ -7,8 +7,12 @@ const addMarkup = () => {
         <div id="add-header">
         <h2>Add item to</h2>
         <select name="project-selector" id="project-selector">
-            ${projects.map((project) => `<option value="${project}">${project}</option>
-                        `).join('')}
+            ${projects
+              .map(
+                (project) => `<option value="${project}">${project}</option>
+                        `,
+              )
+              .join('')}
         </select>
         </div>
         <form id="add-form">

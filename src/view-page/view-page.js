@@ -101,7 +101,9 @@ const loadMainPage = () => {
   });
 
   // Button for deleting project
-  const deleteProjectButtons = document.querySelectorAll('.delete-project-button');
+  const deleteProjectButtons = document.querySelectorAll(
+    '.delete-project-button',
+  );
   deleteProjectButtons.forEach((deleteButton) => {
     deleteButton.addEventListener('click', () => {
       const parent = deleteButton.parentElement.parentElement;
@@ -121,22 +123,23 @@ const loadMainPage = () => {
   // Loop through all projects
   projectContainers.forEach((projectContainer) => {
     // Loop through all edit buttons in project
-    const editTodoButtons = projectContainer.querySelectorAll('.todo-edit-button');
+    const editTodoButtons =
+      projectContainer.querySelectorAll('.todo-edit-button');
     editTodoButtons.forEach((editButton, index) => {
-      editButton.addEventListener('click', (e) => {
-        const parentProjectContainer = e.target.parentElement.parentElement.parentElement.parentElement.parentElement;
-        const parentProjectTitle = parentProjectContainer.querySelector('h2').innerText;
-        const project = projectStorage.get(parentProjectTitle);
+      editButton.addEventListener('click', () => {
+        const projectTitle = projectContainer.querySelector('h2').innerText;
+        const project = projectStorage.get(projectTitle);
         loadAddTodoPage('edit', project, index);
       });
     });
     // Loop through all delete buttons in project
-    const deleteTodoButtons = projectContainer.querySelectorAll('.todo-delete-button');
+    const deleteTodoButtons = projectContainer.querySelectorAll(
+      '.todo-delete-button',
+    );
     deleteTodoButtons.forEach((deleteButton, index) => {
-      deleteButton.addEventListener('click', (e) => {
-        const parentProjectContainer = e.target.parentElement.parentElement.parentElement.parentElement.parentElement;
-        const parentProjectTitle = parentProjectContainer.querySelector('h2').innerText;
-        const project = projectStorage.get(parentProjectTitle);
+      deleteButton.addEventListener('click', () => {
+        const projectTitle = projectContainer.querySelector('h2').innerText;
+        const project = projectStorage.get(projectTitle);
         // Remove from Project object.
         project.removeTodo(index);
         // Save to projectStorage.
