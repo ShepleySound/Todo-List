@@ -1,3 +1,5 @@
+import customAlert from './helpers/customAlert';
+
 class Todo {
   complete = false;
 
@@ -11,6 +13,7 @@ class Todo {
     hasChecklist = false,
   ) {
     if (title === undefined || title === '') {
+      customAlert('Please enter a title');
       throw new Error('Title is undefined or empty');
     }
     if (description === undefined) {
@@ -60,9 +63,11 @@ class Todo {
       throw new Error('Due date is not a date');
     }
     if (new Date() > dueDate) {
+      customAlert('Due date/time must be after current date/time');
       throw new Error('Due date/time must be after current date/time');
     }
     if (dueDate.toString() === 'Invalid Date') {
+      customAlert('Please enter a date');
       throw new Error('Invalid Date');
     }
     this.dueDate = dueDate;

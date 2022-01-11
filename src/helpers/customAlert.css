@@ -1,0 +1,22 @@
+#alert-container {
+  background-color: #484848;
+  font-size: 1.2em;
+  color: #cacaca;
+  padding: 20px;
+  position: absolute;
+  text-align: center;
+  /* Positions in the center-top of the screen */
+  top: 50%;
+  left: 50%;
+  /* Moves left and up by half the box's width and height*/
+  transform: translate(-50%, -50%);
+  border-radius: 8px;
+
+  opacity: 0%;
+  transition: opacity 1s ease;
+}
+
+#alert-container.display {
+  opacity: 75%;
+  /* display: block; */
+}

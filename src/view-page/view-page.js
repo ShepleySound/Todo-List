@@ -7,6 +7,7 @@ import mainPageMarkup from './main-page-DOM';
 import loadAddTodoPage from '../add-page/add-todo';
 import projectStorage from '../project-storage';
 import Project from '../project-class';
+import customAlert from '../helpers/customAlert';
 
 const loadMainPage = () => {
   mainPageMarkup();
@@ -70,10 +71,13 @@ const loadMainPage = () => {
       const project = projectStorage.get(projectTitle);
 
       const submitTitle = () => {
-        if (titleInput.value !== projectTitle) {
+        if (titleInput.value !== projectTitle && titleInput.value) {
           project.editTitle(titleInput.value);
           projectStorage.set(project.title, project);
           projectStorage.remove(projectTitle);
+        }
+        if (!titleInput.value) {
+          customAlert('Please enter a value');
         }
 
         projectTitleElement.innerText = project.title;
