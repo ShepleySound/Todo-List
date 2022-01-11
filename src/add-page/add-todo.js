@@ -5,6 +5,7 @@ import editPageMarkup from './edit-todo-DOM';
 import Todo from '../todo-class';
 import loadMainPage from '../view-page/view-page';
 import storage from '../project-storage';
+import { pageTransition } from '../helpers/page-transition';
 
 const loadAddTodoPage = (addEditOption, project, index) => {
   let editMode;
@@ -20,13 +21,14 @@ const loadAddTodoPage = (addEditOption, project, index) => {
       break;
   }
   const form = document.querySelector('#add-form');
+  form.title.focus();
+  form.title.maxLength = 60;
   const dateCheckbox = document.querySelector('#date-checkbox');
   const dateSelector = document.querySelector('#date-selector');
   categoryDisplay(dateCheckbox, dateSelector);
   const checklistCheckbox = document.querySelector('#checklist-checkbox');
   const checklist = document.querySelector('#checklist');
   categoryDisplay(checklistCheckbox, checklist);
-
   // Adds an item to the page's checklist.
   const addChecklistItem = () => {
     const checklistDiv = document.createElement('div');
@@ -135,12 +137,16 @@ const loadAddTodoPage = (addEditOption, project, index) => {
       project.addTodo(newTodo);
     }
     storage.set(projectTitle, project);
-    loadMainPage();
+    pageTransition(() => {
+      loadMainPage();
+    });
   });
   const cancel = document.querySelector('#cancel');
   cancel.addEventListener('click', (e) => {
     e.preventDefault();
-    loadMainPage();
+    pageTransition(() => {
+      loadMainPage();
+    });
   });
 };
 

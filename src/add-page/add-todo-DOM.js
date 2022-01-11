@@ -16,7 +16,7 @@ const addMarkup = () => {
         </select>
         </div>
         <form id="add-form">
-            <input type="text" name="title" id="title" placeholder="title" maxlength="60">
+            <input type="text" name="title" id="title" placeholder="title">
             <textarea name="description" id="description" placeholder="description" form="add-form"></textarea>
             <div id="priority-container">
                 <label for="priority">Priority</label>

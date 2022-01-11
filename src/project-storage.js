@@ -4,11 +4,9 @@ const set = (projectTitle, project) => {
   localStorage.setItem(projectTitle, JSON.stringify(project));
 };
 const get = (projectTitle) => {
-  let value = localStorage.getItem(projectTitle);
-  value = JSON.parse(value);
-  const project = Project.fromJSON(value);
-
-  return project;
+  const value = localStorage.getItem(projectTitle);
+  const parsedValue = JSON.parse(value);
+  return Project.fromJSON(parsedValue);
 };
 
 const remove = (projectTitle) => {

@@ -8,6 +8,10 @@ import loadAddTodoPage from '../add-page/add-todo';
 import projectStorage from '../project-storage';
 import Project from '../project-class';
 import customAlert from '../helpers/customAlert';
+import {
+  pageTransition,
+  todoDeleteTransition,
+} from '../helpers/page-transition';
 
 const loadMainPage = () => {
   mainPageMarkup();
@@ -27,7 +31,9 @@ const loadMainPage = () => {
   // Button for adding new todo.
   const addTodoButton = document.querySelector('#add-todo-button');
   addTodoButton.addEventListener('click', () => {
-    loadAddTodoPage('add');
+    pageTransition(() => {
+      loadAddTodoPage('add');
+    });
   });
   // Button for adding new projects
   const newProjectButton = document.querySelector('#main-new-project-button');
@@ -112,7 +118,7 @@ const loadMainPage = () => {
       const parent = deleteButton.parentElement.parentElement;
       const projectTitle = parent.querySelector('.project-title').innerText;
       if (localStorage.length === 1) {
-        alert('Cannot delete last remaining project.');
+        customAlert('Cannot delete last remaining project.');
         return;
       }
       if (confirm(`Delete ${projectTitle}?`)) {
@@ -132,7 +138,9 @@ const loadMainPage = () => {
       editButton.addEventListener('click', () => {
         const projectTitle = projectContainer.querySelector('h2').innerText;
         const project = projectStorage.get(projectTitle);
-        loadAddTodoPage('edit', project, index);
+        pageTransition(() => {
+          loadAddTodoPage('edit', project, index);
+        });
       });
     });
     // Loop through all delete buttons in project
@@ -141,6 +149,8 @@ const loadMainPage = () => {
     );
     deleteTodoButtons.forEach((deleteButton, index) => {
       deleteButton.addEventListener('click', () => {
+        const todoContainer = deleteButton.closest('.todo');
+        todoDeleteTransition(todoContainer, loadMainPage);
         const projectTitle = projectContainer.querySelector('h2').innerText;
         const project = projectStorage.get(projectTitle);
         // Remove from Project object.
@@ -148,7 +158,7 @@ const loadMainPage = () => {
         // Save to projectStorage.
         projectStorage.set(project.title, project);
         // Repaint page.
-        loadMainPage();
+        // loadMainPage();
       });
     });
   });

@@ -23,8 +23,7 @@ const generateTodo = (todo, index) => {
   title.classList.add('title');
 
   if (todo.complete) {
-    title.style.textDecoration = 'line-through';
-    title.style.color = '#646464';
+    title.classList.add('task-complete');
   }
 
   checkbox.addEventListener('change', () => {
