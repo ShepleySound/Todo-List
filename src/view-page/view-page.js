@@ -11,17 +11,16 @@ import customAlert from '../helpers/customAlert';
 
 const loadMainPage = () => {
   mainPageMarkup();
-  const projectHeaders = document.querySelectorAll('.project-container h2');
-  projectHeaders.forEach((header) => {
+  const projectContainers = document.querySelectorAll('.project-container');
+  projectContainers.forEach((projectContainer) => {
+    const header = projectContainer.querySelector('.project-title');
     const project = projectStorage.get(header.innerText);
 
-    // const todosDiv = document.querySelector(`#${header.innerText.replace(/\s/g, "-")}`)
-    const projectContainer = header.parentElement.parentElement;
-    const todosDiv = projectContainer.querySelector('.todos-container');
+    const todoContainer = projectContainer.querySelector('.todos-container');
 
     const todos = project.getAllTodos();
     todos.forEach((todo, index) => {
-      todosDiv.append(generateTodo(todo, index));
+      todoContainer.append(generateTodo(todo, index));
     });
   });
 
@@ -123,7 +122,7 @@ const loadMainPage = () => {
     });
   });
 
-  const projectContainers = document.querySelectorAll('.project-container');
+  // const projectContainers = document.querySelectorAll('.project-container');
   // Loop through all projects
   projectContainers.forEach((projectContainer) => {
     // Loop through all edit buttons in project
